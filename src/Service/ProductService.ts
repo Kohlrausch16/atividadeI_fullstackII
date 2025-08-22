@@ -39,6 +39,10 @@ class ProductService{
         
         throw new Error();
     }
+
+    addProduct(product: Product | undefined): string{
+        return productRepository.addProduct(product);
+    }
 }
 
 export default ProductService;

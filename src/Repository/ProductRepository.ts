@@ -1,4 +1,5 @@
 import { Product } from "../Model/Product";
+import { v4 as uuidv4 } from "uuid";
 
 const db: Product [] = require('../../InMemoryDB.json');
 
@@ -41,6 +42,18 @@ class ProductRepository{
             return item.material.includes(material);
         });
         return foundProduct;
+    }
+
+    addProduct(product: Product | undefined): string{
+        if(product){
+            const url = require("url");
+            product.id = uuidv4();
+            db.push(product);
+            
+            return url.parse(`http://localhost:3000/produto/${product.id}`);
+        }
+
+        return "Não foi possível realizar o cadastro";
     }
 
 }

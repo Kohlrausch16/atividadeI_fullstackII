@@ -1,5 +1,7 @@
 import ProductService from "../Service/ProductService";
 import { Request, Response } from "express";
+import { Product } from "../Model/Product";
+import { productValidator } from "./Schema/ProductSchema";
 
 const productService = new ProductService();
 
@@ -7,7 +9,7 @@ class ProductController {
 
     getAll(req: Request, res: Response){
         const {name, color, material, min, max} = req.query;
-        let result;
+        let result: Product | Product [] | undefined;
 
         if(name || color || material || min || max){
             result = productService.getByParam(name as string, min as string, max as string, color as string, material as string);
@@ -18,18 +20,28 @@ class ProductController {
         res.json(result).status(200);
     }
 
-
-    //name - price - color - material
-
     getById(req: Request, res: Response){
-        const id = req.params.id;
+        const id: string = req.params.id;
 
         try{
-            const result = productService.getById(id);
+            const result: Product = productService.getById(id);
             res.json(result).status(200);
         }catch (err: any){
             res.json(`Produto ${id} nao encontrado`).status(404);
         }
+    }
+
+    addProduct(req: Request, res: Response){
+
+        try{
+            const requestBody: Product | undefined = req.body;
+            productValidator.validate(requestBody, {stripUnknown: true});
+
+            res.json(productService.addProduct(requestBody));
+        } catch (err: any){
+            res.json({"erro": err.message}).status(400);
+        }
+
     }
 }
 

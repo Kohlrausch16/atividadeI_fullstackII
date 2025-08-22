@@ -7,6 +7,6 @@ export type Product = {
     height: number;
     length: number;
     color: string [];
-    weigth: number;
+    weight: number;
     material: string;
 }

@@ -2,6 +2,7 @@ import ProductService from "../Service/ProductService";
 import { Request, Response } from "express";
 import { Product } from "../Model/Product";
 import { productValidator } from "./Schema/ProductSchema";
+import { ValidationError } from "../../node_modules/yup/index";
 
 const productService = new ProductService();
 
@@ -36,12 +37,16 @@ class ProductController {
         try{
             const requestBody: Product | undefined = req.body;
             productValidator.validate(requestBody, {stripUnknown: true});
-
             res.json(productService.addProduct(requestBody));
         } catch (err: any){
             res.json({"erro": err.message}).status(400);
         }
 
+    }
+
+
+    deleteProduct(req: Request, res: Response){
+        res.json(productService.deleteProduct(req.params.id));
     }
 }
 

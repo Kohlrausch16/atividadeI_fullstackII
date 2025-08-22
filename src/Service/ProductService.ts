@@ -43,6 +43,10 @@ class ProductService{
     addProduct(product: Product | undefined): string{
         return productRepository.addProduct(product);
     }
+
+    deleteProduct(id: string){
+        return productRepository.deleteProduct(id);
+    }
 }
 
 export default ProductService;

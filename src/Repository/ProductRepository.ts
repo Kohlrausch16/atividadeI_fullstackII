@@ -56,6 +56,23 @@ class ProductRepository{
         return "Não foi possível realizar o cadastro";
     }
 
+
+
+    deleteProduct(id: string): string{
+
+        const product: Product = this.getById(id);
+
+
+        if(product){
+            const productIndex = db.indexOf(product);
+            db.splice(productIndex)
+            return `Produto ${product.name} removido com sucesso!`;
+        }
+        
+        return `Produto ${id} não encontrado!`;
+        
+    }
+
 }
 
 export default ProductRepository;

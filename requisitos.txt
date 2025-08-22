@@ -1,0 +1,28 @@
+Produtos
+
+● Listar todos os produtos e realizar uma busca por um parâmetro
+(nome do produto, valor, quantidade, etc...)
+
+    - id;
+    - name;
+    - price (between);
+    - color;
+    - material;
+
+● Cadastrar um novo produto. Todo produto deve ter pelo menos os
+campos de ID, nome, valor e quantidade.
+
+● Atualizar um produto existente
+
+● Excluir um produto
+
+Usuários
+
+● Criar usuário. Todo usuário deve ter os campos de ID, Nome,
+Senha e Tipo de usuário.
+
+● Listar usuários.
+
+● Atualizar dados do usuário.
+
+● Excluir usuário.

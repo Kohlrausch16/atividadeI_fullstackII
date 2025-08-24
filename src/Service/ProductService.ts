@@ -44,6 +44,10 @@ class ProductService{
         return productRepository.addProduct(product);
     }
 
+    updateProduct(id: string, product: Product){
+        return productRepository.updateProduct(id, product);
+    }
+
     deleteProduct(id: string){
         return productRepository.deleteProduct(id);
     }

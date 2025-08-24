@@ -56,21 +56,34 @@ class ProductRepository{
         return "Não foi possível realizar o cadastro";
     }
 
+    updateProduct(id: string, product: Product): string{
+        const foundProduct: Product = this.getById(id);
+        
+        if(foundProduct){
+            const url = require("url");
+            product.id = uuidv4();
 
+            const productIndex = db.indexOf(foundProduct);
+            db.splice(productIndex);
+
+            product.id = foundProduct.id;+
+            db.push(product);
+            
+            return url.parse(`http://localhost:3000/produto/${id}`);
+        }
+
+        return `Producto ${id} não enontrado`;
+    }
 
     deleteProduct(id: string): string{
-
         const product: Product = this.getById(id);
-
-
         if(product){
             const productIndex = db.indexOf(product);
-            db.splice(productIndex)
+            db.splice(productIndex);
             return `Produto ${product.name} removido com sucesso!`;
         }
         
         return `Produto ${id} não encontrado!`;
-        
     }
 
 }

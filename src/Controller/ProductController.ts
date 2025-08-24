@@ -33,17 +33,22 @@ class ProductController {
     }
 
     addProduct(req: Request, res: Response){
-
         try{
-            const requestBody: Product | undefined = req.body;
-            productValidator.validate(requestBody, {stripUnknown: true});
-            res.json(productService.addProduct(requestBody));
+            productValidator.validate(req.body, {stripUnknown: true});
+            res.json(productService.addProduct(req.body));
         } catch (err: any){
             res.json({"erro": err.message}).status(400);
         }
-
     }
 
+    updateProduct(req: Request, res: Response){
+        try{
+            productValidator.validate(req.body, {stripUnknown: true});
+            res.json(productService.updateProduct(req.params.id as string, req.body as Product));
+        } catch (err: any){
+            res.json({"erro": err.message}).status(400);
+        }
+    }
 
     deleteProduct(req: Request, res: Response){
         res.json(productService.deleteProduct(req.params.id));

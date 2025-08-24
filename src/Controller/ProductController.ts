@@ -2,7 +2,6 @@ import ProductService from "../Service/ProductService";
 import { Request, Response } from "express";
 import { Product } from "../Model/Product";
 import { productValidator } from "./Schema/ProductSchema";
-import { ValidationError } from "../../node_modules/yup/index";
 
 const productService = new ProductService();
 

@@ -1,7 +1,7 @@
 import { Product } from "../Model/Product";
 import { v4 as uuidv4 } from "uuid";
 
-const db: Product [] = require('../../InMemoryDB.json');
+const db: Product [] = require('../../InMemoryProductDB.json');
 
 class ProductRepository{
 

@@ -1,0 +1,32 @@
+[
+  {
+    "id": "1a2b3c",
+    "name": "Alice Silva",
+    "password": "senha123",
+    "userRole": "ADMIN"
+  },
+  {
+    "id": "4d5e6f",
+    "name": "Bruno Costa",
+    "password": "bruno456",
+    "userRole": "USER"
+  },
+  {
+    "id": "7g8h9i",
+    "name": "Carla Mendes",
+    "password": "carla789",
+    "userRole": "MODERATOR"
+  },
+  {
+    "id": "0j1k2l",
+    "name": "Diego Lima",
+    "password": "diego321",
+    "userRole": "USER"
+  },
+  {
+    "id": "3m4n5o",
+    "name": "Eduarda Rocha",
+    "password": "edu123",
+    "userRole": "ADMIN"
+  }
+]

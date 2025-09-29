@@ -1,23 +1,54 @@
 import { User } from "../Model/User";
 import { v4 as uuidv4 } from "uuid";
 
-const db: User [] = require('../../InMemoryDB.json');
-
 class UserRepository{
 
+    private db: User[] = [
+  {
+    "id": "1a2b3c",
+    "name": "Alice Silva",
+    "password": "senha123",
+    "userRole": "ADMIN"
+  },
+  {
+    "id": "4d5e6f",
+    "name": "Bruno Costa",
+    "password": "bruno456",
+    "userRole": "USER"
+  },
+  {
+    "id": "7g8h9i",
+    "name": "Carla Mendes",
+    "password": "carla789",
+    "userRole": "MODERATOR"
+  },
+  {
+    "id": "0j1k2l",
+    "name": "Diego Lima",
+    "password": "diego321",
+    "userRole": "USER"
+  },
+  {
+    "id": "3m4n5o",
+    "name": "Eduarda Rocha",
+    "password": "edu123",
+    "userRole": "ADMIN"
+  }
+]
+
     getAll(): User[]{
-        return db;
+        return this.db;
     }
 
     getById(id: string): User{
-        const foundUser: User[] | undefined = db.filter((item: User) => {
+        const foundUser: User[] | undefined = this.db.filter((item: User) => {
             return item.id === id;
         });
         return foundUser[0];
     }
 
     getByRole(role: string): User[]{
-        const foundUser: User[] | undefined = db.filter((item: User) => {
+        const foundUser: User[] | undefined = this.db.filter((item: User) => {
             return item.userRole == role.toLocaleUpperCase();
         });
         return foundUser;
@@ -27,7 +58,7 @@ class UserRepository{
         if(user){
             const url = require("url");
             user.id = uuidv4();
-            db.push(user);
+            this.db.push(user);
             
             return url.parse(`http://localhost:3000/produto/${user.id}`);
         }
@@ -42,11 +73,11 @@ class UserRepository{
             const url = require("url");
             user.id = uuidv4();
 
-            const UserIndex = db.indexOf(foundUser);
-            db.splice(UserIndex);
+            const UserIndex = this.db.indexOf(foundUser);
+            this.db.splice(UserIndex);
 
             user.id = foundUser.id;+
-            db.push(user);
+            this.db.push(user);
             
             return url.parse(`http://localhost:3000/produto/${id}`);
         }
@@ -57,8 +88,8 @@ class UserRepository{
     deleteUser(id: string): string{
         const user: User = this.getById(id);
         if(user){
-            const UserIndex = db.indexOf(user);
-            db.splice(UserIndex);
+            const UserIndex = this.db.indexOf(user);
+            this.db.splice(UserIndex);
             return `Produto ${user.name} removido com sucesso!`;
         }
         

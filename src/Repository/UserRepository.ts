@@ -4,37 +4,37 @@ import { v4 as uuidv4 } from "uuid";
 class UserRepository{
 
     private db: User[] = [
-  {
-    "id": "1a2b3c",
-    "name": "Alice Silva",
-    "password": "senha123",
-    "userRole": "ADMIN"
-  },
-  {
-    "id": "4d5e6f",
-    "name": "Bruno Costa",
-    "password": "bruno456",
-    "userRole": "USER"
-  },
-  {
-    "id": "7g8h9i",
-    "name": "Carla Mendes",
-    "password": "carla789",
-    "userRole": "MODERATOR"
-  },
-  {
-    "id": "0j1k2l",
-    "name": "Diego Lima",
-    "password": "diego321",
-    "userRole": "USER"
-  },
-  {
-    "id": "3m4n5o",
-    "name": "Eduarda Rocha",
-    "password": "edu123",
-    "userRole": "ADMIN"
-  }
-]
+        {
+            "id": "f8ad7b73-b1b2-4b62-bfd4-09d4b2b34e59",
+            "name": "Alice Silva",
+            "password": "senha123",
+            "userRole": "ADMIN"
+        },
+        {
+            "id": "0f9a6a02-5585-471d-b6a4-8f176cb1cf70",
+            "name": "Bruno Costa",
+            "password": "bruno456",
+            "userRole": "USER"
+        },
+        {
+            "id": "d7e47d9f-2448-4a46-8456-31371ccf22b0",
+            "name": "Carla Mendes",
+            "password": "carla789",
+            "userRole": "MODERATOR"
+        },
+        {
+            "id": "e5e8c60c-4b1a-4c37-a214-5b403567c7e0",
+            "name": "Diego Lima",
+            "password": "diego321",
+            "userRole": "USER"
+        },
+        {
+            "id": "b26b2b55-d71e-4db3-99e3-013cb80d814a",
+            "name": "Eduarda Rocha",
+            "password": "edu123",
+            "userRole": "ADMIN"
+        }
+    ]
 
     getAll(): User[]{
         return this.db;

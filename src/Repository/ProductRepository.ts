@@ -43,7 +43,8 @@ class ProductRepository{
     }
 
     async updateProduct(id: string, product: Product): Promise<Product>{
-        await this.db.exec('UPDATE product SET name = ?, unitPrice = ?, qtd = ?, width = ?, height = ?, length = ?, color = ?, weight = ?, material = ? WHERE id = ?', [product.name, product.unitPrice, product.qtd, product.width, product.height, product.length, product.color, product.weight, product.material, product.id]);
+        console.log(id, ' - ', product);
+        await this.db.exec('UPDATE product SET name = ?, unitPrice = ?, qtd = ?, width = ?, height = ?, length = ?, color = ?, weight = ?, material = ? WHERE id = ?', [product.name, product.unitPrice, product.qtd, product.width, product.height, product.length, product.color, product.weight, product.material, id]);
 
         return await this.getById(id);
     }

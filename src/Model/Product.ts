@@ -6,7 +6,7 @@ export type Product = {
     width: number;
     height: number;
     length: number;
-    color: string [];
+    color: string;
     weight: number;
     material: string;
 }

@@ -1,36 +1,40 @@
+import { v4 as uuidv4 } from 'uuid';
 import { User } from "../Model/User";
 import UserRepository from "../Repository/UserRepository";
 
 const userRepository = new UserRepository();
 
-class UserService{
+class UserService {
 
-    getAll(): User[]{
-        return userRepository.getAll();
+    async getAll(): Promise<User[]> {
+        return await userRepository.getAll();
     }
 
-    getById(id: string): User {
-        const foundUser: User | undefined = userRepository.getById(id);
-        if(!foundUser){
-            throw new Error();
+    async getById(id: string): Promise<User> {
+        return await userRepository.getById(id);
+    }
+
+    async getByParam(name: string, userRole: string): Promise<User | User[]> {
+        if (name) {
+            return await userRepository.getByName(name);
+
+        } else if (userRole) {
+            return await userRepository.getByRole(userRole);
         }
 
-        return foundUser;
+        throw new Error("Parâmetros inválidos para consulta de usuário");
     }
 
-    getByRole(role: string): User[] | undefined{
-        return userRepository.getByRole(role as string);
+    async addUser(user: User): Promise<User> {
+        user.id = uuidv4();
+        return await userRepository.addUser(user);
     }
 
-    addUser(User: User | undefined): string{
-        return userRepository.addUser(User);
+    updateUser(id: string, user: User) {
+        return userRepository.updateUser(id, user);
     }
 
-    updateUser(id: string, User: User){
-        return userRepository.updateUser(id, User);
-    }
-
-    deleteUser(id: string){
+    deleteUser(id: string) {
         return userRepository.deleteUser(id);
     }
 }

@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid';
+
 import { Product } from "../Model/Product";
 import ProductRepository from "../Repository/ProductRepository";
 
@@ -5,43 +7,35 @@ const productRepository = new ProductRepository();
 
 class ProductService{
 
-    getAll(): Product[]{
-        return productRepository.getAll();
+    async getAll(): Promise<Product[]>{
+        return await productRepository.getAll();
     }
 
-    getById(id: string): Product {
-        const foundProduct: Product | undefined = productRepository.getById(id);
-
-        if(!foundProduct){
-            throw new Error();
-        }
-
-        return foundProduct;
+    async getById(id: string): Promise<Product> {
+        return await productRepository.getById(id);
     }
 
-    getByParam(name: string, min: string, max: string, color: string, material: string): Product[] | undefined{
+    async getByParam(name: string, min: string, max: string, color: string, material: string): Promise<Product | Product[]>{
         
         if(name){
-            return productRepository.getByName(name);
-
-        } else if (color){
-            return productRepository.getByColor(color);
+            return await productRepository.getByName(name);
 
         } else if (min || max){
             const queryMin: number = Number(min);
             const queryMax: number = Number(max);
 
-            return productRepository.getByPrice(queryMin, queryMax);
+            return await productRepository.getByPrice(queryMin, queryMax);
 
         } else if (material){
-            return productRepository.getByMaterial(material);
+            return await productRepository.getByMaterial(material);
         }
         
         throw new Error();
     }
 
-    addProduct(product: Product | undefined): string{
-        return productRepository.addProduct(product);
+    async addProduct(product: Product): Promise<Product>{
+        product.id = uuidv4();
+        return await productRepository.addProduct(product);
     }
 
     updateProduct(id: string, product: Product){

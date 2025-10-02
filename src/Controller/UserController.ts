@@ -7,50 +7,61 @@ const userService = new UserService();
 
 class UserController {
 
-    getAll(req: Request, res: Response){
-        const {role} = req.query;
-        let result: User | User [] | undefined;
+    async getAll(req: Request, res: Response) {
+        const { name, userRole } = req.query;
+        let result: User | User[] | undefined;
 
-        if(role){
-            result = userService.getByRole(role as string);
-        } else {
-            result = userService.getAll();
+        try {
+            if (name || userRole) {
+                result = await userService.getByParam(name as string, userRole as string);
+            } else {
+                result = await userService.getAll();
+            }
+
+            res.status(200).json(result);
+        } catch (err: any) {
+            res.status(400).json({ erro: err.message });
         }
-        
-        res.json(result).status(200);
     }
 
-    getById(req: Request, res: Response){
+    async getById(req: Request, res: Response) {
         const id: string = req.params.id;
 
-        try{
-            const result: User = userService.getById(id);
-            res.json(result).status(200);
-        }catch (err: any){
-            res.json(`Produto ${id} nao encontrado`).status(404);
+        try {
+            const result: User = await userService.getById(id);
+            res.status(200).json(result);
+        } catch (err: any) {
+            res.status(404).json({ erro: `Usuário ${id} não encontrado` });
         }
     }
 
-    addUser(req: Request, res: Response){
-        try{
-            userValidator.validate(req.body, {stripUnknown: true});
-            res.json(userService.addUser(req.body));
-        } catch (err: any){
-            res.json({"erro": err.message}).status(400);
+    async addUser(req: Request, res: Response) {
+        try {
+            await userValidator.validate(req.body, { stripUnknown: true });
+            const result = await userService.addUser(req.body);
+            res.status(201).json(result);
+        } catch (err: any) {
+            res.status(400).json({ erro: err.message });
         }
     }
 
-    updateUser(req: Request, res: Response){
-        try{
-            userValidator.validate(req.body, {stripUnknown: true});
-            res.json(userService.updateUser(req.params.id as string, req.body as User));
-        } catch (err: any){
-            res.json({"erro": err.message}).status(400);
+    async updateUser(req: Request, res: Response) {
+        try {
+            await userValidator.validate(req.body, { stripUnknown: true });
+            const result = await userService.updateUser(req.params.id as string, req.body as User);
+            res.status(200).json(result);
+        } catch (err: any) {
+            res.status(400).json({ erro: err.message });
         }
     }
 
-    deleteUser(req: Request, res: Response){
-        res.json(userService.deleteUser(req.params.id));
+    async deleteUser(req: Request, res: Response) {
+        try {
+            const result = await userService.deleteUser(req.params.id);
+            res.status(200).json({ message: result });
+        } catch (err: any) {
+            res.status(404).json({ erro: err.message });
+        }
     }
 }
 

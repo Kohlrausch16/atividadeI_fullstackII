@@ -7,7 +7,7 @@ export const productValidator = object().shape({
     width: number().required("Profundidade do produto não informada!").min(0),
     height: number().required("Altura do produto não informada!").min(0),
     length: number().required("Largura do produto não informada!").min(0),
-    color: array().nullable(),
+    color: string().nullable(),
     weight: number().required("Peso do produto não informado!").min(0),
     material: string().required("Material do produto não informado!")
 });
